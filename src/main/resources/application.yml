@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mySql://localhost:3306/aston
+    username: root
+    password: pass
+
+#  sql:
+#    init:
+#      mode: ALWAYS
+#      data-locations: classpath:db/data.sql
+
+
+
