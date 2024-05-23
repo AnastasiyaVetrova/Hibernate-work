@@ -27,7 +27,6 @@ public class ServicePersonalData implements ServiceInterface<PersonalDataDTO> {
         return dtoList;
     }
 
-
     @Override
     public PersonalDataDTO get(long id) throws Exception {
         PersonalDataEntity personalDataEntity = repository.findById(id);
@@ -38,7 +37,6 @@ public class ServicePersonalData implements ServiceInterface<PersonalDataDTO> {
     public void create(PersonalDataDTO personalDataDTO) throws Exception {
         repository.save(mapToEntity(personalDataDTO));
     }
-
 
     @Override
     public void update(Long id, PersonalDataDTO personalDataDTO) throws Exception {
