@@ -14,6 +14,6 @@ public class CommentEntity {
     private long id;
     private String comment;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "person_id")
     private PersonEntity person;
 }
