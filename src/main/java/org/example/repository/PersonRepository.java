@@ -1,9 +1,11 @@
 package org.example.repository;
 
 import org.example.config.SessionFactoryHibernate;
+import org.example.entity.CommentEntity;
 import org.example.entity.PersonEntity;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +22,7 @@ public class PersonRepository implements RepositoryInterface<PersonEntity> {
         this.sessionFactory = sessionFactory;
     }
 
-    //session.close() закрывает сессию и не загружает данные ManyToMany. Как закрыть сессию по окончании
+    //session.close() закрывает сессию и не загружает данные ManyToMany. Как закрыть сессию по окончании работы сервиса
     @Override
     public List<PersonEntity> findAll() throws Exception {
         Session session = sessionFactory.sessionFactory().openSession();
@@ -70,9 +72,15 @@ public class PersonRepository implements RepositoryInterface<PersonEntity> {
     @Override
     public void delete(long id) throws Exception {
         Session session = sessionFactory.sessionFactory().openSession();
+        String hql = "UPDATE CommentEntity "
+                + "SET person = null "
+                + " where person.id = :id";
+        MutationQuery query = session.createMutationQuery(hql);
+        query.setParameter("id", id);
         Transaction transaction = session.getTransaction();
         try {
             transaction.begin();
+            query.executeUpdate();
             session.remove(session.get(PersonEntity.class, id));
             transaction.commit();
         } catch (Exception e) {

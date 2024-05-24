@@ -1,9 +1,7 @@
 package org.example.services;
 
 import org.example.dto.CommunityDTO;
-import org.example.dto.PersonDTO;
 import org.example.entity.CommunityEntity;
-import org.example.entity.PersonEntity;
 import org.example.repository.RepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ public class ServiceCommunity implements ServiceInterface<CommunityDTO> {
         this.repository = repository;
     }
 
-
     @Override
     public List<CommunityDTO> getAll() throws Exception {
         List<CommunityEntity> entityList = repository.findAll();
@@ -28,7 +25,6 @@ public class ServiceCommunity implements ServiceInterface<CommunityDTO> {
         entityList.forEach(e -> dtoList.add(mapToDTO(e)));
         return dtoList;
     }
-
 
     @Override
     public CommunityDTO get(long id) throws Exception {
@@ -40,7 +36,6 @@ public class ServiceCommunity implements ServiceInterface<CommunityDTO> {
     public void create(CommunityDTO communityDTO) throws Exception {
         repository.save(mapToEntity(communityDTO));
     }
-
 
     @Override
     public void update(Long id, CommunityDTO communityDTO) throws Exception {
